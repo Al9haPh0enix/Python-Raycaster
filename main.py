@@ -16,6 +16,8 @@ s = .03
 ts = .2
 n = 0
 ph = 0
+vh = 0
+jv = 0
 
 with open("world.wor") as f:
     map = []
@@ -57,6 +59,8 @@ def check(keys):
     global a
     global n
     global ph
+    global vh
+    global jv
 
     dx = 0
     dy = 0
@@ -70,6 +74,10 @@ def check(keys):
     if keys[pygame.K_DOWN]:
         dx = math.cos(-(a-180) * (math.pi/180)) * 5
         dy = math.sin(-(a-180) * (math.pi/180)) * 5
+    if keys[pygame.K_w] and vh < 90:
+        vh += ts*30
+    if keys[pygame.K_s] and vh > -90:
+        vh -= ts*30
         
 
     if keys[pygame.K_DOWN] != keys[pygame.K_UP]:
@@ -223,7 +231,7 @@ while running:
     w.fill((76, 76, 76))
 
     check(pygame.key.get_pressed())
-    drawRays2D(ph)
+    drawRays2D(ph + vh)
 
     pygame.display.flip()
 pygame.quit()
